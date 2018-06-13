@@ -4,18 +4,21 @@ const getFeed = () => {
     dataType: 'json',
     url: 'http://localhost:7000/get_feed',
     success: data => {
-      console.log(data)
-      for (let i in data) {
-        $('#headlines').append(`
-          <li><a href="${data[i]['link']}" target="_blank">${data[i]['title']}</a>
+      $('#cookie_counter').html(`This list has been refreshed ${data['cookies']} times today`)
+      const headlines = $('<ul />')
+      for (let i = 0; i < 10; i++) {
+        headlines.append(`
+          <li><a href="${data['data'][i]['link']}" target="_blank">${data['data'][i]['title']}</a>
             <ul>
-              <li>Author: ${data[i]['author']}</li>
-              <li>Published: ${data[i]['published']}</li>
-              <li>${data[i]['summary']}</li>
+              <li>Author: ${data['data'][i]['author']}</li>
+              <li>Published: ${data['data'][i]['published']}</li>
+              <li>${data['data'][i]['summary']}</li>
             </ul>
           </li>`)
       }
+      $('#headlines').html(headlines)
     }
   })
 }
 getFeed()
+$('#refresh').click(getFeed)
