@@ -2,7 +2,7 @@ const getFeed = () => {
   $.ajax({
     type: 'GET',
     dataType: 'json',
-    url: 'http://localhost:7000/get_feed',
+    url: 'https://whispering-plateau-16714.herokuapp.com/get_feed',
     success: data => {
       $('#cookie_counter').html(`This list has been refreshed ${data['cookies']} times today`)
       const headlines = $('<ul />')
