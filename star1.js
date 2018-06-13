@@ -8,7 +8,7 @@ const getFeed = () => {
       const headlines = $('<ul />')
       for (let i = 0; i < 10; i++) {
         headlines.append(`
-          <li><a href="${data['data'][i]['link']}" target="_blank">${data['data'][i]['title']}</a>
+          <li><a href="${data['data'][i]['link']}" target="_blank"><h3>${data['data'][i]['title']}</h3></a>
             <ul>
               <li>Author: ${data['data'][i]['author']}</li>
               <li>Published: ${data['data'][i]['published']}</li>
