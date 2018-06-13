@@ -2,6 +2,8 @@ from bottle import run, route, get, request, response
 import bottle as b
 import feedparser as f
 import json
+from sys import argv
+script, filename = argv 
 
 
 @route('/')
