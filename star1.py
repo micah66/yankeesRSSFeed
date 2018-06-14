@@ -1,9 +1,10 @@
 from bottle import run, route, get, request, response
+from datetime import datetime
 import bottle as b
 import feedparser as f
 import json
 from sys import argv
-script, filename = argv 
+script, filename = argv
 
 
 @route('/')
@@ -30,17 +31,24 @@ def stylesheet(filepath):
 def get_feed():
     feed = f.parse('http://mlb.mlb.com/partnerxml/gen/news/rss/nyy.xml')
     feed_list = [i for i in feed['entries'] if i['link']]
-    refreshed = int(request.get_cookie('refresh_count', 0)) + 1
-    response.set_cookie('refresh_count', str(refreshed), max_age=3600*24)
+    refreshed = request.get_cookie('refresh_count')
+    if request.get_cookie('refresh_count'):
+        message = f'Welcome back! The headlines were lasted refreshed at: {datetime.now()}'
+    else:
+        message = 'Welcome!'
+
+
+    response.set_cookie('refresh_count', message)
     get_feed_data = {
         'data': feed_list,
-        'cookies': refreshed
+        'cookies': message
     }
     return json.dumps(get_feed_data)
 
 
 def main():
     run(host='0.0.0.0', port=argv[1])
+    # run(host='localhost', port='7000')
 
 
 if __name__ == '__main__':
