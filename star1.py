@@ -12,17 +12,12 @@ def index():
     return b.template('star1.html')
 
 
-@route('/<filepath>')
+@route('/<filepath:re:.*\.js>')
 def javascripts(filepath):
     return b.static_file(filepath, root='./')
 
 
-@route('/https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
-def jquery():
-    return b.static_file('https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
-
-
-@route('/<filepath>')
+@route('/<filepath:re:.*\.css>')
 def stylesheet(filepath):
     return b.static_file(filepath, root='./')
 
